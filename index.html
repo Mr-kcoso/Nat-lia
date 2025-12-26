@@ -51,15 +51,8 @@
       color: #f1f5f9;
     }
 
-    .blue {
-      color: #7dd3fc;
-      font-weight: 500;
-    }
-
-    .red {
-      color: #ef4444;
-      font-weight: 500;
-    }
+    .blue { color: #7dd3fc; font-weight: 500; }
+    .red { color: #ef4444; font-weight: 500; }
 
     .gradient {
       background: linear-gradient(90deg, #60a5fa, #ef4444);
@@ -85,9 +78,7 @@
       box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     }
 
-    .hidden {
-      display: none;
-    }
+    .hidden { display: none; }
 
     .heart {
       position: fixed;
@@ -112,7 +103,7 @@
 
 <body>
 
-  <!-- TELA 1 -->
+  <!-- SCREEN 1 -->
   <div class="card" id="screen1">
     <h1>Natália 💙</h1>
     <p>
@@ -120,12 +111,11 @@
       coloquei uma trilha sonora pra acompanhar essa leitura.<br>
       Aperta quando quiser. 🎧
     </p>
-
     <button onclick="playMusic()">🎧 Tocar música</button>
     <button onclick="nextScreen()">Começar</button>
   </div>
 
-  <!-- TELA 2 -->
+  <!-- SCREEN 2 -->
   <div class="card hidden" id="screen2">
     <h1>1 mês</h1>
     <p>
@@ -136,7 +126,7 @@
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
-  <!-- TELA 3 -->
+  <!-- SCREEN 3 -->
   <div class="card hidden" id="screen3">
     <h1>Sobre você</h1>
     <p>
@@ -147,7 +137,7 @@
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
-  <!-- TELA 4 -->
+  <!-- SCREEN 4 -->
   <div class="card hidden" id="screen4">
     <h1>Seu olhar</h1>
     <p>
@@ -158,7 +148,7 @@
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
-  <!-- TELA 5 -->
+  <!-- SCREEN 5 -->
   <div class="card hidden" id="screen5">
     <h1>Seu jeito</h1>
     <p>
@@ -169,7 +159,7 @@
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
-  <!-- TELA 6 -->
+  <!-- SCREEN 6 -->
   <div class="card hidden" id="screen6">
     <h1>Nós</h1>
     <p>
@@ -180,14 +170,14 @@
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
-  <!-- TELA 7 – CONTADOR -->
+  <!-- SCREEN 7 -->
   <div class="card hidden" id="screen7">
     <h1>Desde então</h1>
     <p id="counter"></p>
-    <button onclick="nextScreen()">Tem mais uma coisa</button>
+    <button onclick="nextScreen()">Última</button>
   </div>
 
-  <!-- TELA 8 – FINAL -->
+  <!-- SCREEN 8 -->
   <div class="card hidden" id="screen8">
     <h1>💙</h1>
     <p>
@@ -197,9 +187,10 @@
       Marcos<br>
       27/12/2025
     </p>
+    <button onclick="restart()">Ler novamente 🔁</button>
   </div>
 
-  <audio id="music" src="musica.mp3.mp3"></audio>
+  <audio id="music" src="musica.mp3"></audio>
 
   <script>
     let current = 1;
@@ -209,6 +200,13 @@
       current++;
       const next = document.getElementById(`screen${current}`);
       if (next) next.classList.remove('hidden');
+    }
+
+    function restart() {
+      document.getElementById(`screen${current}`).classList.add('hidden');
+      current = 1;
+      document.getElementById('screen1').classList.remove('hidden');
+      window.scrollTo(0, 0);
     }
 
     function playMusic() {
@@ -227,7 +225,6 @@
 
     setInterval(createHeart, 700);
 
-    // CONTADOR
     const startDate = new Date('2025-11-27T00:00:00');
     function updateCounter() {
       const now = new Date();
