@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>1 mês com você 🤍</title>
+  <title>1 mês com você 💙</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
   <style>
     * {
       margin: 0;
@@ -15,51 +16,54 @@
 
     body {
       min-height: 100vh;
-      background: linear-gradient(135deg, #f8cdda, #1d2b64);
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       display: flex;
       justify-content: center;
       align-items: center;
       color: #fff;
       text-align: center;
       padding: 20px;
+      overflow: hidden;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      border-radius: 22px;
       padding: 30px 25px;
-      max-width: 400px;
+      max-width: 420px;
       width: 100%;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      animation: fadeIn 1s ease;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+      animation: fadeIn 0.8s ease;
     }
 
     h1 {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
+      font-size: 1.7rem;
+      margin-bottom: 12px;
+      color: #e3f2fd;
     }
 
     p {
       font-size: 1rem;
-      margin-bottom: 20px;
-      line-height: 1.5;
+      line-height: 1.6;
+      margin-bottom: 22px;
+      color: #f5f5f5;
     }
 
     button {
-      background: #fff;
-      color: #1d2b64;
+      background: linear-gradient(135deg, #e53935, #d32f2f);
+      color: #fff;
       border: none;
-      padding: 12px 20px;
+      padding: 12px 22px;
       border-radius: 30px;
-      font-size: 1rem;
+      font-size: 0.95rem;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
     button:hover {
       transform: scale(1.05);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     }
 
     .hidden {
@@ -68,54 +72,83 @@
 
     .heart {
       position: fixed;
-      bottom: -20px;
-      font-size: 20px;
-      animation: floatUp 4s linear forwards;
+      bottom: -30px;
+      font-size: 18px;
+      animation: floatUp 5s linear forwards;
       opacity: 0.8;
+      color: #e53935;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(25px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes floatUp {
-      from {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      to {
-        transform: translateY(-110vh);
-        opacity: 0;
-      }
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-120vh); opacity: 0; }
     }
   </style>
 </head>
+
 <body>
 
   <div class="card" id="screen1">
-    <h1>Natália 🤍</h1>
+    <h1>Natália 💙</h1>
     <p>
-      Hoje faz 1 mês desde que a gente começou essa história.<br>
-      Fiz isso aqui só pra te lembrar disso.
+      Hoje faz 1 mês desde que você aceitou aquele pedido.<br>
+      Mesmo longe, esse mês foi especial demais.<br>
+      E muito disso é por sua causa.
     </p>
-    <button onclick="nextScreen()">Tocar 💌</button>
+    <button onclick="nextScreen()">Continuar</button>
   </div>
 
   <div class="card hidden" id="screen2">
-    <h1>1 mês</h1>
+    <h1>Sobre você</h1>
     <p>
-      30 dias que passaram rápido demais.<br>
-      E mesmo assim, já viraram algo importante pra mim.
+      Eu gosto do seu cabelo cacheado.<br>
+      Do jeito que ele é, do jeito que te faz única.<br>
+      É impossível não reparar.
     </p>
-    <button onclick="nextScreen()">Mais um pouquinho</button>
+    <button onclick="nextScreen()">Continuar</button>
   </div>
 
   <div class="card hidden" id="screen3">
-    <h1>Obrigada por existir</h1>
+    <h1>Seu olhar</h1>
     <p>
-      Que esse seja só o começo de muitas coisas boas.<br>
-      Eu gosto de você. 🤍
+      Seus olhos têm algo diferente.<br>
+      Eles passam calma, verdade e um brilho que prende.<br>
+      É um detalhe simples, mas muito forte.
+    </p>
+    <button onclick="nextScreen()">Continuar</button>
+  </div>
+
+  <div class="card hidden" id="screen4">
+    <h1>Seu jeito</h1>
+    <p>
+      Gosto do seu sorriso.<br>
+      Do seu corpo do jeito que é.<br>
+      Do jeito que você se expressa, sem esforço.
+    </p>
+    <button onclick="nextScreen()">Continuar</button>
+  </div>
+
+  <div class="card hidden" id="screen5">
+    <h1>Nós</h1>
+    <p>
+      Gosto das nossas conversas.<br>
+      Dos assuntos bobos, dos sérios, de tudo no meio.<br>
+      Falar com você é fácil. É leve.
+    </p>
+    <button onclick="nextScreen()">Última</button>
+  </div>
+
+  <div class="card hidden" id="screen6">
+    <h1>1 mês</h1>
+    <p>
+      Obrigado por esse primeiro mês.<br>
+      Que seja só o começo de muitas coisas boas.<br>
+      Eu gosto muito de você. 💙
     </p>
   </div>
 
@@ -132,17 +165,15 @@
     function createHeart() {
       const heart = document.createElement('div');
       heart.classList.add('heart');
-      heart.innerText = '🤍';
+      heart.innerText = '❤️';
       heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.fontSize = (16 + Math.random() * 20) + 'px';
+      heart.style.fontSize = (14 + Math.random() * 18) + 'px';
       document.body.appendChild(heart);
 
-      setTimeout(() => {
-        heart.remove();
-      }, 4000);
+      setTimeout(() => heart.remove(), 5000);
     }
 
-    setInterval(createHeart, 600);
+    setInterval(createHeart, 700);
   </script>
 
 </body>
