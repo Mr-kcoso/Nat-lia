@@ -1,25 +1,149 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Meu Primeiro Site</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            color: #2c3e50;
-        }
-        p {
-            color: #555;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1 mês com você 🤍</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f8cdda, #1d2b64);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px 25px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      animation: fadeIn 1s ease;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    button {
+      background: #fff;
+      color: #1d2b64;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 20px;
+      animation: floatUp 4s linear forwards;
+      opacity: 0.8;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>Olá, mundo!</h1>
-    <p>Este é meu primeiro site hospedado no GitHub Pages 🚀</p>
+
+  <div class="card" id="screen1">
+    <h1>Natália 🤍</h1>
+    <p>
+      Hoje faz 1 mês desde que a gente começou essa história.<br>
+      Fiz isso aqui só pra te lembrar disso.
+    </p>
+    <button onclick="nextScreen()">Tocar 💌</button>
+  </div>
+
+  <div class="card hidden" id="screen2">
+    <h1>1 mês</h1>
+    <p>
+      30 dias que passaram rápido demais.<br>
+      E mesmo assim, já viraram algo importante pra mim.
+    </p>
+    <button onclick="nextScreen()">Mais um pouquinho</button>
+  </div>
+
+  <div class="card hidden" id="screen3">
+    <h1>Obrigada por existir</h1>
+    <p>
+      Que esse seja só o começo de muitas coisas boas.<br>
+      Eu gosto de você. 🤍
+    </p>
+  </div>
+
+  <script>
+    let current = 1;
+
+    function nextScreen() {
+      document.getElementById(`screen${current}`).classList.add('hidden');
+      current++;
+      const next = document.getElementById(`screen${current}`);
+      if (next) next.classList.remove('hidden');
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerText = '🤍';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (16 + Math.random() * 20) + 'px';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 4000);
+    }
+
+    setInterval(createHeart, 600);
+  </script>
+
 </body>
 </html>
