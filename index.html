@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>1 mês com você 💙</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
   <style>
@@ -16,7 +17,7 @@
 
     body {
       min-height: 100vh;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      background: linear-gradient(135deg, #0a1f44, #102a43, #1e3a5f);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -27,31 +28,48 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255,255,255,0.12);
       backdrop-filter: blur(12px);
       border-radius: 22px;
       padding: 30px 25px;
       max-width: 420px;
       width: 100%;
       box-shadow: 0 20px 40px rgba(0,0,0,0.35);
-      animation: fadeIn 0.8s ease;
+      animation: fadeIn 0.7s ease;
     }
 
     h1 {
-      font-size: 1.7rem;
+      font-size: 1.6rem;
       margin-bottom: 12px;
-      color: #e3f2fd;
+      color: #dbeafe;
     }
 
     p {
       font-size: 1rem;
       line-height: 1.6;
       margin-bottom: 22px;
-      color: #f5f5f5;
+      color: #f1f5f9;
+    }
+
+    .blue {
+      color: #7dd3fc;
+      font-weight: 500;
+    }
+
+    .red {
+      color: #ef4444;
+      font-weight: 500;
+    }
+
+    .gradient {
+      background: linear-gradient(90deg, #60a5fa, #ef4444);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 600;
     }
 
     button {
-      background: linear-gradient(135deg, #e53935, #d32f2f);
+      background: linear-gradient(135deg, #ef4444, #dc2626);
       color: #fff;
       border: none;
       padding: 12px 22px;
@@ -59,6 +77,7 @@
       font-size: 0.95rem;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
+      margin: 6px;
     }
 
     button:hover {
@@ -76,11 +95,11 @@
       font-size: 18px;
       animation: floatUp 5s linear forwards;
       opacity: 0.8;
-      color: #e53935;
+      color: #ef4444;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(25px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -93,64 +112,92 @@
 
 <body>
 
+  <!-- TELA 1 -->
   <div class="card" id="screen1">
     <h1>Natália 💙</h1>
     <p>
       Hoje faz 1 mês desde que você aceitou aquele pedido.<br>
-      Mesmo longe, esse mês foi especial demais.<br>
-      E muito disso é por sua causa.
+      Mesmo longe, esse mês foi especial.<br>
+      E isso é por sua causa.
     </p>
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
+  <!-- TELA 2 -->
   <div class="card hidden" id="screen2">
     <h1>Sobre você</h1>
     <p>
-      Eu gosto do seu cabelo cacheado.<br>
-      Do jeito que ele é, do jeito que te faz única.<br>
+      Eu gosto muito do seu <span class="blue">cabelo cacheado</span>.<br>
+      Do jeito que ele é, natural, bonito.<br>
       É impossível não reparar.
     </p>
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
+  <!-- TELA 3 -->
   <div class="card hidden" id="screen3">
     <h1>Seu olhar</h1>
     <p>
-      Seus olhos têm algo diferente.<br>
-      Eles passam calma, verdade e um brilho que prende.<br>
-      É um detalhe simples, mas muito forte.
+      Seus olhos têm um brilho calmo.<br>
+      E o seu <span class="red">sorriso</span> muda completamente o clima.<br>
+      Ele é fácil, sincero.
     </p>
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
+  <!-- TELA 4 -->
   <div class="card hidden" id="screen4">
     <h1>Seu jeito</h1>
     <p>
-      Gosto do seu sorriso.<br>
-      Do seu corpo do jeito que é.<br>
-      Do jeito que você se expressa, sem esforço.
+      Gosto do seu corpo do jeito que é.<br>
+      Gosto de como você se expressa.<br>
+      Tudo em você é leve.
     </p>
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
+  <!-- TELA 5 -->
   <div class="card hidden" id="screen5">
     <h1>Nós</h1>
     <p>
       Gosto das nossas conversas.<br>
-      Dos assuntos bobos, dos sérios, de tudo no meio.<br>
-      Falar com você é fácil. É leve.
+      Dos assuntos bobos, dos sérios.<br>
+      De <span class="gradient">nós dois</span>.
     </p>
-    <button onclick="nextScreen()">Última</button>
+    <button onclick="nextScreen()">Continuar</button>
   </div>
 
+  <!-- TELA 6 – CONTADOR -->
   <div class="card hidden" id="screen6">
-    <h1>1 mês</h1>
+    <h1>Desde então</h1>
+    <p id="counter"></p>
+    <button onclick="nextScreen()">Tem mais uma coisa</button>
+  </div>
+
+  <!-- TELA 7 – SURPRESA -->
+  <div class="card hidden" id="screen7">
+    <h1>Última coisa</h1>
     <p>
       Obrigado por esse primeiro mês.<br>
-      Que seja só o começo de muitas coisas boas.<br>
-      Eu gosto muito de você. 💙
+      Eu gosto muito de você.<br>
+      De verdade.
+    </p>
+
+    <button onclick="playMusic()">🎧 Tocar música</button>
+    <button onclick="nextScreen()">Final</button>
+  </div>
+
+  <!-- TELA 8 – ASSINATURA -->
+  <div class="card hidden" id="screen8">
+    <h1>💙</h1>
+    <p>
+      Com carinho,<br>
+      Marcos<br>
+      27/12/2025
     </p>
   </div>
+
+  <audio id="music" src="musica.mp3.mp3"></audio>
 
   <script>
     let current = 1;
@@ -169,11 +216,30 @@
       heart.style.left = Math.random() * 100 + 'vw';
       heart.style.fontSize = (14 + Math.random() * 18) + 'px';
       document.body.appendChild(heart);
-
       setTimeout(() => heart.remove(), 5000);
     }
 
     setInterval(createHeart, 700);
+
+    // CONTADOR
+    const startDate = new Date('2025-11-27T00:00:00'); // ajuste se quiser
+    function updateCounter() {
+      const now = new Date();
+      const diff = now - startDate;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+
+      document.getElementById('counter').innerHTML =
+        `Estamos juntos há <span class="blue">${days}</span> dias e <span class="red">${hours}</span> horas.`;
+    }
+    updateCounter();
+    setInterval(updateCounter, 60000);
+
+    // MÚSICA
+    function playMusic() {
+      document.getElementById('music').play();
+    }
   </script>
 
 </body>
