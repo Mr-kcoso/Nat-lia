@@ -116,6 +116,19 @@
   <div class="card" id="screen1">
     <h1>Natália 💙</h1>
     <p>
+      Antes de começar,<br>
+      coloquei uma trilha sonora pra acompanhar essa leitura.<br>
+      Aperta quando quiser. 🎧
+    </p>
+
+    <button onclick="playMusic()">🎧 Tocar música</button>
+    <button onclick="nextScreen()">Começar</button>
+  </div>
+
+  <!-- TELA 2 -->
+  <div class="card hidden" id="screen2">
+    <h1>1 mês</h1>
+    <p>
       Hoje faz 1 mês desde que você aceitou aquele pedido.<br>
       Mesmo longe, esse mês foi especial.<br>
       E isso é por sua causa.
@@ -123,8 +136,8 @@
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
-  <!-- TELA 2 -->
-  <div class="card hidden" id="screen2">
+  <!-- TELA 3 -->
+  <div class="card hidden" id="screen3">
     <h1>Sobre você</h1>
     <p>
       Eu gosto muito do seu <span class="blue">cabelo cacheado</span>.<br>
@@ -134,8 +147,8 @@
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
-  <!-- TELA 3 -->
-  <div class="card hidden" id="screen3">
+  <!-- TELA 4 -->
+  <div class="card hidden" id="screen4">
     <h1>Seu olhar</h1>
     <p>
       Seus olhos têm um brilho calmo.<br>
@@ -145,8 +158,8 @@
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
-  <!-- TELA 4 -->
-  <div class="card hidden" id="screen4">
+  <!-- TELA 5 -->
+  <div class="card hidden" id="screen5">
     <h1>Seu jeito</h1>
     <p>
       Gosto do seu corpo do jeito que é.<br>
@@ -156,8 +169,8 @@
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
-  <!-- TELA 5 -->
-  <div class="card hidden" id="screen5">
+  <!-- TELA 6 -->
+  <div class="card hidden" id="screen6">
     <h1>Nós</h1>
     <p>
       Gosto das nossas conversas.<br>
@@ -167,30 +180,19 @@
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
-  <!-- TELA 6 – CONTADOR -->
-  <div class="card hidden" id="screen6">
+  <!-- TELA 7 – CONTADOR -->
+  <div class="card hidden" id="screen7">
     <h1>Desde então</h1>
     <p id="counter"></p>
     <button onclick="nextScreen()">Tem mais uma coisa</button>
   </div>
 
-  <!-- TELA 7 – SURPRESA -->
-  <div class="card hidden" id="screen7">
-    <h1>Última coisa</h1>
-    <p>
-      Obrigado por esse primeiro mês.<br>
-      Eu gosto muito de você.<br>
-      De verdade.
-    </p>
-
-    <button onclick="playMusic()">🎧 Tocar música</button>
-    <button onclick="nextScreen()">Final</button>
-  </div>
-
-  <!-- TELA 8 – ASSINATURA -->
+  <!-- TELA 8 – FINAL -->
   <div class="card hidden" id="screen8">
     <h1>💙</h1>
     <p>
+      Obrigado por esse primeiro mês.<br>
+      Eu gosto muito de você.<br><br>
       Com carinho,<br>
       Marcos<br>
       27/12/2025
@@ -209,6 +211,10 @@
       if (next) next.classList.remove('hidden');
     }
 
+    function playMusic() {
+      document.getElementById('music').play();
+    }
+
     function createHeart() {
       const heart = document.createElement('div');
       heart.classList.add('heart');
@@ -222,11 +228,10 @@
     setInterval(createHeart, 700);
 
     // CONTADOR
-    const startDate = new Date('2025-11-27T00:00:00'); // ajuste se quiser
+    const startDate = new Date('2025-11-27T00:00:00');
     function updateCounter() {
       const now = new Date();
       const diff = now - startDate;
-
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
 
@@ -235,11 +240,6 @@
     }
     updateCounter();
     setInterval(updateCounter, 60000);
-
-    // MÚSICA
-    function playMusic() {
-      document.getElementById('music').play();
-    }
   </script>
 
 </body>
