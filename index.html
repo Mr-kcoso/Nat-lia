@@ -105,9 +105,8 @@
 
 <body>
 
-  <!-- SCREEN 1 -->
   <div class="card" id="screen1">
-    <h1 onclick="eggName()">Natália 💙</h1>
+    <h1 onclick="eggTitle('Você não faz ideia do quanto eu gosto de dizer seu nome.')">Natália 💙</h1>
     <p>
       Antes de começar,<br>
       coloquei uma trilha sonora pra acompanhar essa leitura.<br>
@@ -117,71 +116,64 @@
     <button onclick="nextScreen()">Começar</button>
   </div>
 
-  <!-- SCREEN 2 -->
   <div class="card hidden" id="screen2">
-    <h1>1 mês</h1>
+    <h1 onclick="eggTitle('Um mês pode ser pouco tempo, mas foi suficiente pra eu ter certeza.')">1 mês</h1>
     <p>
-      Hoje faz 1 mês desde que você aceitou aquele pedido.<br>
-      Mesmo longe, esse mês foi especial.<br>
-      E isso é por sua causa.
+      Esse mês passou rápido.<br>
+      Mas cada conversa, cada risada,<br>
+      ficou guardada.
     </p>
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
-  <!-- SCREEN 3 -->
   <div class="card hidden" id="screen3">
-    <h1>Sobre você</h1>
+    <h1 onclick="eggTitle('Detalhes assim fazem eu gostar ainda mais de você.')">Sobre você</h1>
     <p>
       Eu gosto muito do seu <span class="blue" onclick="eggHair()">cabelo cacheado</span>.<br>
-      Do jeito que ele é, natural, bonito.<br>
-      É impossível não reparar.
+      Ele combina com você.<br>
+      E eu adoro isso.
     </p>
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
-  <!-- SCREEN 4 -->
   <div class="card hidden" id="screen4">
-    <h1>Seu olhar</h1>
+    <h1 onclick="eggTitle('Seu sorriso é uma das minhas cenas favoritas.')">Seu olhar</h1>
     <p>
-      Seus olhos têm um brilho calmo.<br>
-      E o seu <span class="red" onclick="eggSmile()">sorriso</span> muda completamente o clima.<br>
-      Ele é fácil, sincero.
+      Seu <span class="red" onclick="eggSmile()">sorriso</span> muda tudo.<br>
+      Ele deixa os dias mais leves.<br>
+      Mesmo de longe.
     </p>
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
-  <!-- SCREEN 5 -->
   <div class="card hidden" id="screen5">
-    <h1>Seu jeito</h1>
+    <h1 onclick="eggTitle('Gosto de você sem precisar mudar nada.')">Seu jeito</h1>
     <p>
-      Gosto do seu corpo do jeito que é.<br>
-      Gosto de como você se expressa.<br>
-      Tudo em você é leve.
+      Gosto de quem você é.<br>
+      Do seu jeito natural.<br>
+      Do jeito que só você tem.
     </p>
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
-  <!-- SCREEN 6 -->
   <div class="card hidden" id="screen6">
-    <h1>Nós</h1>
+    <h1 onclick="eggTitle('Nós é meu plural favorito.')">Nós</h1>
     <p>
-      Gosto das nossas conversas.<br>
-      Dos assuntos bobos, dos sérios.<br>
-      De <span class="gradient" onclick="eggUs()">nós dois</span>.
+      Gosto de <span class="gradient" onclick="eggUs()">nós dois</span>.<br>
+      Do que somos agora.<br>
+      E do que ainda vamos ser.
     </p>
     <button onclick="nextScreen()">Continuar</button>
   </div>
 
-  <!-- SCREEN 7 -->
   <div class="card hidden" id="screen7">
-    <h1>Desde então</h1>
-    <p id="counter"></p>
+    <h1 onclick="eggTitle('E isso é só o começo.')">Desde então</h1>
+    <p id="counter" onclick="eggTime()"></p>
     <button onclick="nextScreen()">Última</button>
   </div>
 
-  <!-- SCREEN 8 -->
   <div class="card hidden" id="screen8">
-    <h1>💙</h1>
+    <h1 onclick="eggTitle('Obrigada por ler tudo. Isso significa muito pra mim.')">💙</h1>
     <p>
       Obrigado por esse primeiro mês.<br>
       Eu gosto muito de você.<br><br>
@@ -225,7 +217,6 @@
 
     setInterval(createHeart, 700);
 
-    // COUNTER
     const startDate = new Date('2025-11-27T00:00:00');
     function updateCounter() {
       const now = new Date();
@@ -238,24 +229,28 @@
     updateCounter();
 
     // EASTER EGGS
+    function eggTitle(msg) {
+      alert(msg);
+    }
+
     function eggHair() {
-      alert("Detalhe aleatório: eu sorrio toda vez que penso no seu cabelo.");
+      alert("Esse detalhe é um dos meus favoritos em você.");
     }
 
     function eggSmile() {
-      alert("Seu sorriso é meu lugar seguro.");
+      alert("Seu sorriso sempre melhora meu dia.");
     }
 
     function eggUs() {
-      alert("A parte mais bonita disso tudo é que é com você.");
+      alert("Com você, tudo faz mais sentido.");
     }
 
-    function eggName() {
-      alert("Seu nome já é bonito. Em você, ficou especial.");
+    function eggTime() {
+      alert("Cada hora com você vale mais do que parece.");
     }
 
     function eggFinal() {
-      alert("Se você chegou até aqui, é porque leu tudo. Eu gostei disso.");
+      alert("Se você chegou até aqui, é porque sentiu tudo isso também.");
     }
   </script>
 
