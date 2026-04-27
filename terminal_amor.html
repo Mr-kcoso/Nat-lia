@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal do Amor v6.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0e27 0%, #1a0033 100%);
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .terminal-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 600px;
+            background: rgba(10, 14, 39, 0.85);
+            border: 2px solid #ff1493;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(255, 20, 147, 0.3),
+                        inset 0 0 20px rgba(255, 20, 147, 0.1);
+            padding: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 20, 147, 0.3);
+        }
+
+        .terminal-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff1493;
+            text-shadow: 0 0 10px #ff1493;
+            letter-spacing: 2px;
+        }
+
+        .terminal-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-close {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff5555;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-close:hover {
+            transform: scale(1.2);
+        }
+
+        .btn-minimize {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ffaa00;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-minimize:hover {
+            transform: scale(1.2);
+        }
+
+        .btn-maximize {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #00ff00;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-maximize:hover {
+            transform: scale(1.2);
+        }
+
+        .output {
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 20, 147, 0.2);
+            border-radius: 5px;
+            scroll-behavior: smooth;
+        }
+
+        .output::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .output::-webkit-scrollbar-track {
+            background: rgba(255, 20, 147, 0.1);
+            border-radius: 5px;
+        }
+
+        .output::-webkit-scrollbar-thumb {
+            background: rgba(255, 20, 147, 0.5);
+            border-radius: 5px;
+        }
+
+        .output::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 20, 147, 0.8);
+        }
+
+        .line {
+            color: #00ff88;
+            margin: 8px 0;
+            font-size: 14px;
+            line-height: 1.5;
+            text-shadow: 0 0 5px rgba(0, 255, 136, 0.3);
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .input-prompt {
+            color: #ff1493;
+            font-weight: bold;
+            min-width: 30px;
+            text-shadow: 0 0 5px #ff1493;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 136, 0.5);
+            color: #00ff88;
+            padding: 10px 12px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+            text-shadow: 0 0 5px rgba(0, 255, 136, 0.3);
+        }
+
+        input[type="text"]:focus {
+            border-color: #ff1493;
+            box-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+        }
+
+        .glitch {
+            animation: glitch 0.3s;
+        }
+
+        @keyframes glitch {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-2px);
+            }
+            50% {
+                transform: translateX(2px);
+            }
+            75% {
+                transform: translateX(-2px);
+            }
+        }
+
+        .corruption {
+            animation: corruption 0.1s infinite;
+            color: #ff0066;
+            text-shadow: 0 0 10px #ff0066;
+        }
+
+        @keyframes corruption {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff1493;
+            font-size: 24px;
+            animation: fall 3s linear forwards;
+            text-shadow: 0 0 10px #ff1493;
+        }
+
+        @keyframes fall {
+            0% {
+                opacity: 1;
+                transform: translateY(-50px) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(180deg);
+            }
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            flex: 1;
+            min-width: 100px;
+            padding: 10px 15px;
+            background: rgba(255, 20, 147, 0.2);
+            border: 1px solid #ff1493;
+            color: #ff1493;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-shadow: 0 0 5px #ff1493;
+        }
+
+        button:hover {
+            background: rgba(255, 20, 147, 0.4);
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .success-line {
+            color: #00ff88;
+            animation: successGlow 0.5s;
+        }
+
+        @keyframes successGlow {
+            0% {
+                text-shadow: 0 0 5px rgba(0, 255, 136, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(0, 255, 136, 0.8);
+            }
+            100% {
+                text-shadow: 0 0 5px rgba(0, 255, 136, 0.3);
+            }
+        }
+
+        .secret-line {
+            color: #ff00ff;
+            animation: secretGlow 0.8s;
+            text-shadow: 0 0 15px #ff00ff;
+        }
+
+        @keyframes secretGlow {
+            0%, 100% {
+                text-shadow: 0 0 5px #ff00ff;
+            }
+            50% {
+                text-shadow: 0 0 30px #ff00ff;
+            }
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            margin-left: 5px;
+            background: #00ff88;
+            animation: blink 1s infinite;
+            vertical-align: bottom;
+        }
+
+        @keyframes blink {
+            0%, 49%, 100% {
+                opacity: 1;
+            }
+            50%, 99% {
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .terminal-container {
+                padding: 15px;
+                border-radius: 5px;
+            }
+
+            .terminal-title {
+                font-size: 14px;
+            }
+
+            .line {
+                font-size: 12px;
+            }
+
+            .output {
+                height: 350px;
+                padding: 10px;
+            }
+
+            .heart {
+                font-size: 18px;
+            }
+
+            button {
+                font-size: 12px;
+                min-width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas class="matrix-bg" id="matrixCanvas"></canvas>
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="terminal-title">TERMINAL DO AMOR v6.0</div>
+            <div class="terminal-buttons">
+                <div class="btn-minimize"></div>
+                <div class="btn-maximize"></div>
+                <div class="btn-close"></div>
+            </div>
+        </div>
+
+        <div class="output" id="output"></div>
+
+        <div class="input-area" id="inputArea">
+            <span class="input-prompt">></span>
+            <input type="text" id="userInput" placeholder="Sua resposta aqui..." autocomplete="off">
+        </div>
+
+        <div class="button-group" id="buttonGroup"></div>
+    </div>
+
+    <script>
+        const output = document.getElementById('output');
+        const userInput = document.getElementById('userInput');
+        const buttonGroup = document.getElementById('buttonGroup');
+        const heartsContainer = document.getElementById('heartsContainer');
+
+        let currentState = 'inicio';
+
+        // Estados do sistema
+        const states = {
+            inicio: {
+                type: 'boot',
+                lines: [
+                    '> INICIANDO SISTEMA DE AMOR v6.0...',
+                    '> Carregando memórias...',
+                    '> Mês 1... [OK]',
+                    '> Mês 2... [OK]',
+                    '> Mês 3... [OK]',
+                    '> Mês 4... [OK]',
+                    '> Mês 5... [OK]',
+                    '> ----------------------------------',
+                    '> SISTEMA: Detectada presença de Natália',
+                    '> SISTEMA: Nível de amor = 1.000.000%',
+                    '> ----------------------------------',
+                    '> Eita! 5 meses já se passaram! Acabei me enrolando',
+                    '> com o TCC e trabalho, então não consegui pensar em',
+                    '> muita coisa, mas espero que essa mensagem seja boa',
+                    '> o suficiente. Te amo!',
+                    '> ',
+                    '> Confesso que nesses 5 meses...',
+                    '> foram momentos que eu nunca vou esquecer.',
+                    '> E ainda quero viver muito mais com você.',
+                    '> ----------------------------------',
+                    '> Deseja renovar contrato para o 6º mês? (S/N)'
+                ]
+            }
+        };
+
+        // Delay helper
+        const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+        // Add line com efeito
+        const addLine = async (text, speed = 50, isSecret = false) => {
+            const line = document.createElement('div');
+            line.className = 'line';
+            if (isSecret) line.classList.add('secret-line');
+            line.textContent = text;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+            await delay(speed);
+        };
+
+        // Glitch effect
+        const glitchEffect = async () => {
+            const container = document.querySelector('.terminal-container');
+            container.classList.add('glitch');
+            await delay(300);
+            container.classList.remove('glitch');
+        };
+
+        // Corruption effect
+        const corruptionEffect = async () => {
+            const chars = '!@#$%¨&*()_+=-{}[]<>/\\|01LOVE❤️';
+            for (let i = 0; i < 8; i++) {
+                const corruptLine = document.createElement('div');
+                corruptLine.className = 'line corruption';
+                corruptLine.textContent = '> ' + Array(40)
+                    .fill()
+                    .map(() => chars[Math.floor(Math.random() * chars.length)])
+                    .join('');
+                output.appendChild(corruptLine);
+                output.scrollTop = output.scrollHeight;
+                await delay(80);
+            }
+        };
+
+        // Heart rain effect
+        const heartRain = async () => {
+            for (let i = 0; i < 60; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = '❤️';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = (i * 50) + 'ms';
+                heartsContainer.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 3000 + (i * 50));
+            }
+        };
+
+        // Boot sequence
+        const bootSequence = async () => {
+            userInput.disabled = true;
+            buttonGroup.innerHTML = '';
+
+            for (const line of states.inicio.lines) {
+                await addLine(line, 30);
+            }
+
+            userInput.disabled = false;
+            userInput.focus();
+            setupInput();
+        };
+
+        // Setup input handler
+        const setupInput = () => {
+            userInput.value = '';
+            userInput.onkeypress = async (e) => {
+                if (e.key === 'Enter') {
+                    const input = userInput.value.trim().toUpperCase();
+                    userInput.disabled = true;
+                    userInput.value = '';
+
+                    await addLine(`> ${input}`);
+
+                    if (input === 'S') {
+                        await successPath();
+                    } else if (input === 'N') {
+                        await errorNegation();
+                    } else if (input.includes('JOELHO')) {
+                        await piadaJoelho();
+                    } else if (input.includes('YOGURT')) {
+                        await piadaYogurt();
+                    } else if (input.includes('PIANO')) {
+                        await piadaPiano();
+                    } else if (input.includes('CABELO')) {
+                        await piadaCabelo();
+                    } else if (input.includes('CACHORRA') || input.includes('CACHORRAS')) {
+                        await piadaCachorras();
+                    } else if (['NATALIA', 'NAT', 'AMOR'].includes(input)) {
+                        await secretMode();
+                    } else {
+                        await errorGeneric();
+                    }
+                }
+            };
+        };
+
+        // Success path
+        const successPath = async () => {
+            await delay(1200);
+            await addLine('> PROCESSANDO RESPOSTA...');
+            await delay(1200);
+            await addLine('> ACESSO CONCEDIDO.', 50, true);
+            await delay(600);
+            await addLine('> Te amo infinitamente ❤️', 50, true);
+            await delay(1500);
+            await poemaFinal();
+            await heartRain();
+            
+            // Restart button
+            const restartBtn = document.createElement('button');
+            restartBtn.textContent = 'RECOMEÇAR';
+            restartBtn.onclick = () => location.reload();
+            buttonGroup.appendChild(restartBtn);
+        };
+
+        // Poema Final
+        const poemaFinal = async () => {
+            const poema = [
+                '> ----------------------------------',
+                '> MODO POÉTICO ATIVADO...',
+                '>',
+                '> Em meio a códigos e linhas frias,',
+                '> você virou minha parte favorita do dia.',
+                '>',
+                '> Nos seus cachos eu me perco sem medo,',
+                '> como quem encontra um lar em segredo.',
+                '>',
+                '> No som do piano, vejo você existir,',
+                '> como a música mais linda que já ouvi.',
+                '>',
+                '> Entre risadas, yogurt e implicações,',
+                '> até seus joelhos contam histórias em vibrações.',
+                '>',
+                '> E no meio de tudo, tão simples assim,',
+                '> Fanny e Cacau guardam pedaços de mim.',
+                '>',
+                '> Não é só sobre hoje, nem só sobre nós,',
+                '> é sobre todos os dias que ainda vêm após.',
+                '>',
+                '> > Eu te amo. ❤️'
+            ];
+
+            for (const line of poema) {
+                await addLine(line, 80, true);
+            }
+        };
+
+        // Error: Negation
+        const errorNegation = async () => {
+            await glitchEffect();
+            await addLine('> ERRO 403: Negação não permitida 😠');
+            await delay(500);
+            await corruptionEffect();
+            await reiniciar();
+        };
+
+        // Error: Generic
+        const errorGeneric = async () => {
+            const messages = [
+                '> Comando inválido 😐',
+                '> Sistema confuso... você quis dizer S? 🤔',
+                '> Tentativa suspeita detectada 👀',
+                '> Amor obrigatório ativado ❤️',
+                '> Digite S logo 😌',
+                '> Eu programo, mas não aceito rejeição 😎'
+            ];
+            
+            await glitchEffect();
+            await addLine(messages[Math.floor(Math.random() * messages.length)]);
+            await delay(500);
+            await corruptionEffect();
+            await reiniciar();
+        };
+
+        // Piada Joelho
+        const piadaJoelho = async () => {
+            await addLine('> Detectando estrutura óssea...');
+            await delay(600);
+            await addLine('> *CREC* *CREC* confirmado 😂');
+            await addLine('> Modo velhinha ativado com sucesso 👵❤️');
+            await addLine('> Mas continua sendo a mais linda de todas.');
+            await resetPergunta();
+        };
+
+        // Piada Yogurt
+        const piadaYogurt = async () => {
+            await addLine('> Analisando alimentação...');
+            await delay(600);
+            await addLine('> Yogurt detectado em níveis críticos 🥄');
+            await addLine('> Possível vício identificado 😳');
+            await addLine('> Diagnóstico: fofa demais.');
+            await resetPergunta();
+        };
+
+        // Piada Piano
+        const piadaPiano = async () => {
+            await addLine('> Detectando talento...');
+            await delay(600);
+            await addLine('> Piano identificado 🎹');
+            await addLine('> Nível: absurdo.');
+            await addLine('> Você é tipo música que não dá pra parar de ouvir.');
+            await resetPergunta();
+        };
+
+        // Piada Cabelo
+        const piadaCabelo = async () => {
+            await addLine('> Analisando estética...');
+            await delay(600);
+            await addLine('> Cachos detectados 🌪️');
+            await addLine('> Classificação: PERFEIÇÃO.');
+            await addLine('> Sério... seu cabelo é lindo demais.');
+            await resetPergunta();
+        };
+
+        // Piada Cachorras
+        const piadaCachorras = async () => {
+            await addLine('> Buscando registros de felicidade...');
+            await delay(600);
+            await addLine('> Fanny encontrada 🐶');
+            await addLine('> Cacau encontrada 🐶');
+            await addLine('> Sistema confirma: felicidade completa.');
+            await addLine('> E eu amo ver você com elas.');
+            await resetPergunta();
+        };
+
+        // Reset para próxima pergunta
+        const resetPergunta = async () => {
+            await delay(500);
+            await addLine('> ----------------------------------');
+            await addLine('> Deseja renovar contrato para o 6º mês? (S/N)');
+            userInput.disabled = false;
+            userInput.focus();
+            setupInput();
+        };
+
+        // Secret mode
+        const secretMode = async () => {
+            await glitchEffect();
+            await delay(400);
+            output.innerHTML = '';
+            
+            const secretLines = [
+                '> ACESSO OCULTO DETECTADO...',
+                '> Identidade confirmada...',
+                '> Olá, Natália ❤️',
+                '> ',
+                '> Você encontrou algo que ninguém mais encontraria...',
+                '> Então aqui vai a verdade completa:',
+                '> ',
+                '> Eu te amo muito mais do que consigo colocar em código.',
+                '> E quero continuar escrevendo essa história com você.',
+                '> Não só no mês 6...',
+                '> Mas em todos os próximos.'
+            ];
+
+            for (const line of secretLines) {
+                await addLine(line, 400, true);
+            }
+
+            await delay(800);
+            await heartRain();
+
+            const restartBtn = document.createElement('button');
+            restartBtn.textContent = 'FECHAR MENSAGEM';
+            restartBtn.onclick = () => location.reload();
+            buttonGroup.appendChild(restartBtn);
+        };
+
+        // Reiniciar
+        const reiniciar = async () => {
+            const lines = [
+                '> ERRO CRÍTICO DETECTADO...',
+                '> CORROMPENDO MEMÓRIA...',
+                '> #########################',
+                '> REINICIANDO SISTEMA...',
+                '> Carregando módulos...',
+                '> Restaurando amor por Natália...',
+                '> Sistema estável novamente ❤️',
+                '> ----------------------------------',
+                '> Deseja renovar contrato para o 6º mês? (S/N)'
+            ];
+
+            for (const line of lines) {
+                await addLine(line, 30);
+            }
+
+            userInput.disabled = false;
+            userInput.focus();
+            setupInput();
+        };
+
+        // Matrix background animation
+        const matrixCanvas = document.getElementById('matrixCanvas');
+        const ctx = matrixCanvas.getContext('2d');
+        matrixCanvas.width = window.innerWidth;
+        matrixCanvas.height = window.innerHeight;
+
+        let columns = Math.floor(matrixCanvas.width / 20);
+        let drops = Array(columns).fill(0);
+
+        const drawMatrix = () => {
+            ctx.fillStyle = 'rgba(10, 14, 39, 0.05)';
+            ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+            ctx.fillStyle = '#ff1493';
+            ctx.font = '15px Courier New';
+
+            const chars = 'NATÁLIA❤️01LOVE';
+            for (let i = 0; i < drops.length; i++) {
+                const char = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(char, i * 20, drops[i] * 20);
+
+                if (drops[i] * 20 > matrixCanvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        };
+
+        const animateMatrix = () => {
+            drawMatrix();
+            setTimeout(animateMatrix, 33);
+        };
+
+        animateMatrix();
+
+        // Responsive canvas
+        window.addEventListener('resize', () => {
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+        });
+
+        // Start
+        bootSequence();
+    </script>
+</body>
+</html>
