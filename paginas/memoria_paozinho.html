@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEMÓRIA — PAOZINHO</title>
+    <link rel="stylesheet" href="../estilo/style.css">
+</head>
+<body>
+    <div class="fita-container">
+        <h1>MEMÓRIA_PAOZINHO</h1>
+        <p>DESEJO SIMPLES — PÃEZINHO FRESCO</p>
+        <div style="text-align: justify; max-width: 720px;">
+            <p>Acordar com o cheiro de massa levedando. A ansiedade que embalou noites de espera — dormir cedo apenas para levantar cedo e comer o primeiro pão quente.</p>
+            <p>É uma vontade quase infantil: apertar com os dedos a crosta, sentir o calor que desvenda o interior macio. O mundo, por alguns minutos, fica em paz quando o pão aparece na mesa.</p>
+            <p>Algumas memórias são assim: simples e decisivas. Um ritual de conforto. A urgência do desejo vira rotina; o pensamento pequeno que resolve o dia.</p>
+            <blockquote style="background:#070707; padding:10px; border-left:3px solid #444;">"Registro sensorial: pãezinho fresco — ansiedade doce — ritual matinal."</blockquote>
+            <p style="margin-top:12px;">Bm0: Este fragmento indica um padrão de cuidado e conforto; pode ser associado a rotinas matinais e laços afetivos.</p>
+        </div>
+        <button onclick="location.href='../menu.html'">VOLTAR AO MENU</button>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', ()=>{
+            // subtle pulse using container
+            const container = document.querySelector('.fita-container');
+            if (container){
+                container.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-6px)' }, { transform: 'translateY(0)' }], { duration: 420, iterations: 1 });
+            }
+
+            // WebAudio: light stomach/anticipation sound
+            try{
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                const ctx = new AudioCtx();
+
+                const o = ctx.createOscillator(); o.type = 'sine'; o.frequency.value = 90;
+                const g = ctx.createGain(); g.gain.value = 0.0001;
+                o.connect(g); g.connect(ctx.destination);
+                o.start();
+                g.gain.setTargetAtTime(0.06, ctx.currentTime, 0.02);
+                g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+                o.frequency.linearRampToValueAtTime(130, ctx.currentTime + 0.5);
+                o.stop(ctx.currentTime + 0.7);
+
+                const o2 = ctx.createOscillator(); o2.type = 'triangle'; o2.frequency.value = 520;
+                const g2 = ctx.createGain(); g2.gain.value = 0.0001;
+                o2.connect(g2); g2.connect(ctx.destination);
+                o2.start();
+                g2.gain.setTargetAtTime(0.05, ctx.currentTime + 0.22, 0.005);
+                g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.7);
+                o2.stop(ctx.currentTime + 0.85);
+            }catch(e){ console.warn('audio failed', e); }
+        });
+    </script>
+</body>
+</html>
