@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Terminal B-M0</title>
+    <link rel="stylesheet" href="../estilo/style.css">
+    <style>
+        :root{ --bg:#000; --red:#ff2222; --dark-red:#8b0000; --muted:#6b0b0b; --glow:rgba(255,34,34,0.12); }
+        html,body{height:100%;}
+        body { background:var(--bg); color:var(--red); font-family: 'Courier New', Courier, monospace; margin:0; padding:16px; -webkit-font-smoothing:antialiased; }
+        .terminal-wrap { position:relative; overflow:hidden; max-width:980px; margin:12px auto; border-radius:8px; background:linear-gradient(180deg, #050202 0%, #0a0505 100%); padding:12px; box-shadow:0 8px 40px rgba(0,0,0,0.8); border:1px solid rgba(255,0,0,0.06); }
+        .terminal-wrap > *{ position:relative; z-index:2; }
+        .terminal-header { display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+        .bm0-title { font-weight:700; color:var(--red); letter-spacing:1px; }
+        .bm0-badge { display:flex; gap:12px; align-items:center; }
+        .bm0-img { width:56px; height:56px; border-radius:6px; background:#100; overflow:hidden; border:1px solid rgba(255,34,34,0.12); }
+        .bm0-img img{ width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(40%) contrast(110%); }
+        .terminal-meta { color:var(--muted); font-size:0.95rem; margin-top:6px; }
+        .back-btn{ padding:8px 10px; border-radius:6px; background:rgba(139,0,0,0.06); color:var(--red); border:1px solid rgba(255,34,34,0.12); text-decoration:none; font-weight:700; }
+        #terminal-window { background:linear-gradient(180deg,#060202,#020101); color:var(--red); padding:16px; min-height:360px; max-height:66vh; overflow:auto; border-radius:6px; font-family:monospace; font-size:0.95rem; border:1px solid rgba(255,0,0,0.06); box-shadow: inset 0 0 40px rgba(255,0,0,0.01); }
+        .bg-layer{ position:absolute; inset:0; z-index:0; background-size:cover; background-position:center; mix-blend-mode:overlay; transition:opacity .45s ease, transform .6s ease, filter .45s ease; filter:grayscale(20%) contrast(85%) brightness(55%); pointer-events:none; }
+        .bg-layer.bg1{ opacity:0.35; }
+        .bg-layer.bg2{ opacity:0; }
+        @keyframes glitchPulse {
+            0% { opacity: 0.0; filter: brightness(50%) contrast(90%); transform: translateY(0) scale(1); }
+            25% { opacity: 0.5; filter: brightness(80%) contrast(110%); transform: translateY(-4px) scale(1.02); }
+            50% { opacity: 0.12; filter: brightness(60%) contrast(95%); transform: translateY(2px) scale(1.01); }
+            100% { opacity: 0.35; filter: brightness(55%) contrast(95%); transform: translateY(0) scale(1); }
+        }
+        .glitch-anim{ animation: glitchPulse .9s linear 1; }
+        .terminal-wrap > *{ position:relative; z-index:3; }
+        .terminal-input { display:flex; gap:8px; margin-top:12px; }
+        .terminal-input input{ flex:1; padding:12px; border-radius:6px; border:1px solid rgba(255,34,34,0.12); background:transparent; color:var(--red); outline:none; box-shadow:0 2px 8px var(--glow) inset; }
+        .terminal-btn{ padding:10px 14px; border-radius:6px; background:transparent; color:var(--red); font-weight:700; border:1px solid rgba(255,34,34,0.16); cursor:pointer; transition:all .14s ease; }
+        .terminal-btn:hover{ transform:translateY(-2px); box-shadow:0 6px 20px rgba(255,34,34,0.06); }
+        .log-entry{ margin-bottom:12px; line-height:1.4; white-space:pre-wrap; word-break:break-word; }
+        .log-user{ color:#ff9fbf; }
+        .log-bm0{ color:var(--red); opacity:0.95; }
+        .glitch{ position:relative; }
+        .glitch:after, .glitch:before{ content:''; position:absolute; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, rgba(255,34,34,0.08), transparent); top:8px; mix-blend-mode:screen; pointer-events:none; }
+        .meta-pill{ display:inline-block; padding:4px 8px; border-radius:4px; background:rgba(255,34,34,0.04); color:var(--muted); font-size:0.9rem; margin-left:8px; }
+
+        /* Responsive */
+        @media (max-width:640px){
+            .terminal-wrap{ padding:10px; margin:8px; }
+            .bm0-img{ width:48px; height:48px; }
+            #terminal-window{ min-height:300px; font-size:0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal-wrap">
+        <div id="bm0-bg" class="bg-layer"></div>
+        <div class="terminal-header">
+            <div>
+                <div class="bm0-title">TERMINAL B-M0</div>
+                <div class="terminal-meta">Origem: Desconhecida • Estado: Operacional • Reconstrução: <span id="recon-percent">73</span>%</div>
+            </div>
+            <div class="bm0-badge">
+                <div class="bm0-img" id="bm0-img"><img src="../Fotos/Bmonada.png" alt="B-M0"></div>
+            </div>
+            <a id="btn-back" class="back-btn" href="../menu.html" title="Voltar ao menu">VOLTAR AO MENU</a>
+        </div>
+
+        <div id="terminal-window" aria-live="polite"></div>
+
+        <div class="terminal-input">
+            <input id="terminal-input" placeholder="> Pergunte algo" aria-label="Terminal input">
+            <button id="terminal-enviar" class="terminal-btn">ENVIAR</button>
+        </div>
+    </div>
+
+<script src="../funcao/estado.js"></script>
+<script src="../funcao/terminal_bm0.js"></script>
+</body>
+</html>
