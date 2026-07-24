@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>8 Meses de Nós</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/chapters.css">
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+<div id="progress-trail"></div>
+<button id="music-toggle" aria-label="Música"></button>
+<audio id="bg-music" loop></audio>
+
+<!-- ===================== CAPÍTULO 1 — Oi... ===================== -->
+<section class="chapter active" id="chapter-1">
+  <div class="scene-card">
+    <div id="letter-lines" class="letter-lines"></div>
+    <button class="btn" id="ch1-continue" data-next="2">Começar a aventura</button>
+  </div>
+</section>
+
+<!-- ===================== CAPÍTULO 2 — Estoure os Balões ===================== -->
+<section class="chapter" id="chapter-2">
+  <div class="scene-card">
+    <span class="eyebrow">Capítulo 2</span>
+    <h1 class="scene-title">Estoure os balões</h1>
+    <p class="scene-text">Cada balão guarda uma coisa que eu amo em você.</p>
+    <div class="balloon-field" id="balloon-field"></div>
+    <p class="progress-hint" id="ch2-progress"></p>
+    <button class="btn" id="ch2-continue" data-next="3">Continuar</button>
+  </div>
+</section>
+<div class="quality-toast" id="quality-toast"></div>
+
+<!-- ===================== CAPÍTULO 3 — Jardim ===================== -->
+<section class="chapter" id="chapter-3">
+  <div class="scene-card">
+    <span class="eyebrow">Capítulo 3</span>
+    <h1 class="scene-title">Jardim</h1>
+    <p class="scene-text">Plante os lírios-do-vale e deixe o jardim florescer.</p>
+    <div class="garden-plot" id="garden-plot"></div>
+    <p class="progress-hint" id="ch3-progress"></p>
+    <button class="btn" id="ch3-continue" data-next="4">Continuar</button>
+  </div>
+</section>
+
+<!-- ===================== CAPÍTULO 4 — Caça às Estrelas ===================== -->
+<section class="chapter" id="chapter-4">
+  <div class="scene-card">
+    <span class="eyebrow">Capítulo 4</span>
+    <h1 class="scene-title">Caça às estrelas</h1>
+    <p class="scene-text">Capture as estrelas brilhantes e reviva algumas lembranças.</p>
+    <div class="star-hunt-field" id="star-hunt-field"></div>
+    <p class="progress-hint" id="ch4-progress"></p>
+    <button class="btn" id="ch4-continue" data-next="5">Continuar</button>
+  </div>
+</section>
+<div class="quality-toast" id="memory-toast"></div>
+
+<!-- ===================== CAPÍTULO 5 — Piano ===================== -->
+<section class="chapter" id="chapter-5">
+  <div class="scene-card">
+    <span class="eyebrow">Capítulo 5</span>
+    <h1 class="scene-title">Piano</h1>
+    <p class="scene-text">Toque qualquer melodia. Não precisa saber tocar.</p>
+    <div class="piano" id="piano"></div>
+    <p class="progress-hint" id="ch5-progress"></p>
+    <button class="btn" id="ch5-continue" data-next="6">Continuar</button>
+  </div>
+</section>
+
+<!-- ===================== CAPÍTULO 6 — Fanny e Cacau ===================== -->
+<section class="chapter" id="chapter-6">
+  <div class="scene-card">
+    <span class="eyebrow">Capítulo 6</span>
+    <h1 class="scene-title">Fanny e Cacau</h1>
+    <p class="scene-text">Faça carinho neles.</p>
+    <div class="dogs-field" id="dogs-field"></div>
+    <p class="progress-hint" id="ch6-progress"></p>
+    <button class="btn" id="ch6-continue" data-next="7">Continuar</button>
+  </div>
+</section>
+
+<!-- ===================== CAPÍTULO 7 — Memórias ===================== -->
+<section class="chapter" id="chapter-7">
+  <div class="scene-card">
+    <span class="eyebrow">Capítulo 7</span>
+    <h1 class="scene-title">Memórias</h1>
+    <p class="scene-text">Afaste as nuvens para revelar a foto.</p>
+    <div class="photo-frame" id="photo-frame">
+      <div class="cloud-layer" id="clouds-layer" style="position:absolute; inset:0;"></div>
+    </div>
+    <p class="progress-hint" id="ch7-progress"></p>
+    <button class="btn" id="ch7-continue" data-next="8">Continuar</button>
+  </div>
+</section>
+
+<!-- ===================== CAPÍTULO 8 — Constelação ===================== -->
+<section class="chapter" id="chapter-8">
+  <div class="scene-card">
+    <span class="eyebrow">Capítulo 8</span>
+    <h1 class="scene-title">Constelação</h1>
+    <p class="scene-text">Ligue as estrelas, na ordem em que elas brilham.</p>
+    <div class="constellation-wrap">
+      <canvas id="constellation-canvas"></canvas>
+    </div>
+    <p class="progress-hint" id="ch8-progress"></p>
+    <p class="scene-text" id="constellation-initials" style="opacity:0; transition: opacity 1s var(--ease-soft); font-weight:600; letter-spacing:2px; color:var(--accent-pink);"></p>
+    <button class="btn" id="ch8-continue" data-next="9">Continuar</button>
+  </div>
+</section>
+
+<!-- ===================== CAPÍTULO 9 — Final ===================== -->
+<section class="chapter" id="chapter-9">
+  <div class="scene-card">
+    <span class="eyebrow">Capítulo final</span>
+    <div class="gift-box" id="gift-box">🎁</div>
+    <p class="progress-hint" id="ch9-hint">toque no presente</p>
+    <div class="final-letter glass-card" id="final-letter">
+      <h1 class="scene-title" id="final-title"></h1>
+      <p class="scene-text" id="final-text"></p>
+    </div>
+  </div>
+</section>
+
+<script src="js/config.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/chapter1.js"></script>
+<script src="js/chapter2.js"></script>
+<script src="js/chapter3.js"></script>
+<script src="js/chapter4.js"></script>
+<script src="js/chapter5.js"></script>
+<script src="js/chapter6.js"></script>
+<script src="js/chapter7.js"></script>
+<script src="js/chapter8.js"></script>
+<script src="js/chapter9.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
