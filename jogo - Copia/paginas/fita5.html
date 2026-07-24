@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Memória 005</title>
+
+    <link rel="stylesheet" href="../estilo/style.css">
+
+</head>
+
+<body>
+
+    <div class="fita-container">
+
+        <img id="imagemCena">
+
+        <div id="texto"></div>
+
+        <div id="enigma" style="display:none;" class="enigma">
+
+            <p>O bilhete indica um destino desconhecido. Qual o número de identificação deste setor?</p>
+
+            <input type="number" id="resposta" autocomplete="off" placeholder="Digite o número">
+
+            <div class="fita-actions">
+                <button id="enviar-btn" onclick="verificarResposta()">ENVIAR</button>
+            </div>
+
+            <div id="fita-feedback" class="fita-feedback"></div>
+
+        </div>
+
+        <button id="continuar" onclick="proximaCena()">
+            CONTINUAR >
+        </button>
+
+    </div>
+
+    <script src="../funcao/estado.js"></script>
+    <script src="../funcao/fitas_ui.js"></script>
+    <script src="../funcao/fita5.js"></script>
+
+</body>
+
+</html>
